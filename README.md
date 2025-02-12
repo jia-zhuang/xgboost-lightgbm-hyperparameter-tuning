@@ -17,7 +17,7 @@
 | learning_rate | 0 ~ 1 | 与 XGBoost 类似 |
 | num_leaves | > 0 | 与 XGBoost 中 max_depth 转换关系大致为 num_leaves = 2\*\*max_depth，但树不是完全二叉树，一般设置时会小于 2\*\*max_depth。比如，max_depth 为 7 时效果最好，那么 num_leaves 设为 70 或 80 就够了。默认值为 31 |
 | min_data_in_leaf | > 0 | 与 XGBoost 中 min_child_weight 类似。默认值为 20 |
-| bagging_fraction | 0 ~ 1 | 与 XGBoost 中 subsample 类似 |
+| bagging_fraction | 0 ~ 1 | 与 XGBoost 中 subsample 类似，生效的话必须设置 subsample_freq=1 |
 | feature_fraction | 0 ~ 1 | 与 XGBoost 中 colsample_bytree 类似 |
 | lambda_l1/l2 | > 0 | L1/L2 正则化参数 |
 
