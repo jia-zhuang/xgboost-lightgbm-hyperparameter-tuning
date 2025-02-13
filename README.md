@@ -21,6 +21,18 @@
 | feature_fraction | 0 ~ 1 | 与 XGBoost 中 colsample_bytree 类似 |
 | lambda_l1/l2 | > 0 | L1/L2 正则化参数 |
 
+### 手动调参经验
+
+#### [Chris Deotte](https://www.kaggle.com/cdeotte)
+[Link](https://www.kaggle.com/competitions/equity-post-HCT-survival-predictions/discussion/550863)
+> I tune my models manually. And I only adjust three parameters, namely `max_depth`, `colsample_bytree`, and `subsample` so it's easy. Many other Kagglers tune a dozen parameters with Optuna, but I only tune these three and it has worked well for me the past 5 years!
+>This isn't to say Optuna doesn't help. I once had a teammate who applied Optuna to my model (and tuned a dozen parameters) and it boosted the CV LB better than my tuning. But the 3 I name are the most important and mostly get the job done. They certainly allow us to effectively search feature engineering.
+>One exception is with XGBoost when using `enable_categorical=True`, I think tuning `min_child_weight` to greater than zero like 5, 10, 25, 50, 100 helps.
+>
+> Before I find features, I like to have a strong working baseline. (i.e. There is no point adding features to a non-working model). So I quickly tune hyperparameters in some base models so they perform well. Afterward I try adding new features. For the most part, I do not optimize (i.e. change) hyperparameters as I am adding features. I just keep the same hyperparameters and try adding features. Then perhaps once I've changed a lot of features (after a few weeks of feature engineering), I may check the hyperparameters again.
+>There are some exceptions to the process I describe above. There are some features that require different hyperparameters, so if I add certain features, I may tune hyperparameters at the same time. One example is if I add a group of 50 new features that are high correlated. Then I might change `colsample_bytree` to deal with the redundant features. Or let's say I add features where I want interaction or i do not want interaction, then i might adjust `tree_depth`. But for the most part when adding most common new features, I just keep my original model hyperparameters.
+
+
 ### [贝叶斯优化](https://github.com/fmfn/BayesianOptimization)
 
 [探索/利用平衡](https://github.com/fmfn/BayesianOptimization/blob/master/examples/exploitation_vs_exploration.ipynb)
